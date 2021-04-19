@@ -1,0 +1,244 @@
+Dieses Textfile erhält eine Erklärung zu 
+(1) dem LED Licht
+(2) dem LED Licht mit ständigen Ein- und Ausschalten
+(3) dem LED Licht mit dem Fading-Effect
+(4) dem Buzzer
+(5) alles zusammen
+--------------------------
+(1) der Matrix
+
+
+
+(1)In diesem Teil geht es um die Integration des LED Lichts, welches ausführlich in der 
+Anleitung erklärt wurde. Hierbei wird im ersten Teil des Codes der Setup des Lichts gemacht.
+Also mit welchem Eingang und welchem Ausgang das Licht verbunden ist bzw. wie der Ablauf
+des Stroms erfolgt.
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(4, INPUT_PULLUP);
+  pinMode(7, OUTPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  if(digitalRead(4) == LOW) {
+    digitalWrite(7, HIGH);
+  } else {
+    digitalWrite(7, LOW);
+  }
+}
+
+
+
+(2) Der zweite Teil baut auf dem ersten Teil auf mit dem Unterschied, dass das LED Licht
+beim Anmachen mehrere Male ein- und ausgehen soll. Hierfür wurde sich zunächst mit einem 
+Timer bzw. einem delay beschäftigt. 
+Wenn nun also der Schalter umgelegt wird, dann soll die Lampe an- und ausgehen mit jeweiligen 
+Delay von 10ms, eine Art Pause um die Veränderung des Lichts zu erkennen.
+
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(4, INPUT_PULLUP);
+  pinMode(7, OUTPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  if(digitalRead(4) == LOW) {
+    digitalWrite(7, HIGH);
+    delay(10); 
+    digitalWrite(7, LOW);
+    delay(10);
+  } else {
+    digitalWrite(7, LOW);
+  }
+}
+
+
+
+
+
+(3)
+analogWrite(pinNumber, PWM)
+PWM = analog output to fade an LED
+
+ increase your PWM value from 0 (all the way off) to 255 (all the way on), 
+ and then back to 0 once again to complete the cycle
+ 
+ 
+Bei diesem Teil ist folgendermaßen vorgegangen: 
+wenn der Schalter umgelegt wird, dann soll der Wert bzw. die Helligkeit des LEDs verändert werden.
+Der PWM Wert kann zwischen 0 und 255 sein. Wenn das Licht langsam angehen soll, wird der Wert
+increased. Soll das Licht sich langsam dimmen, wird ein decrement vorgenommen.
+Um die jeweilige Veränderung des Lichts gut zu erkennen, wurde wieder ein Delay eingebaut,
+eine Pause zwischen den jeweiligen Veränderungen der Lichthelligkeit.
+ 
+ 
+ 
+
+
+int brightness = 0;
+int fading = 5;
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(4, INPUT_PULLUP); //Ein- und Ausschalter
+  pinMode(3, OUTPUT); //Stromzufuhr
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  if(digitalRead(4) == LOW) {
+    if(brightness < 255) {
+      brightness = brightness + fading;
+    }
+  } else {
+    if (brightness > 0) {
+      brightness = brightness - fading;
+    }
+  }
+  analogWrite(3, brightness);
+  delay(30);
+}
+
+
+
+
+(4.1) - press button
+
+tone(pin, frequency, duration)
+
+
+
+#include "pitches.h"
+
+// notes in the melody:
+int melody[] = {
+  NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4
+};
+
+// note durations: 4 = quarter note, 8 = eighth note, etc.:
+int noteDurations[] = {
+  4, 8, 8, 4, 4, 4, 4, 4
+};
+
+void setup() {
+  for (int thisNote = 0; thisNote < 8; thisNote++) {
+    int noteDuration = 1000 / noteDurations[thisNote];
+    tone(8, melody[thisNote], noteDuration);
+    int pauseBetweenNotes = noteDuration;
+    delay(pauseBetweenNotes);
+    noTone(8);
+  }
+}
+
+void loop() {
+  // no need to repeat the melody.
+}
+
+
+
+(4.2) - timer expires
+
+
+#include "pitches.h"
+#include "arduino-timer.h"
+
+//timer created
+auto timer = timer_create_default();
+
+
+// notes in the melody
+int melody[] = { NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4 };
+
+
+// note durations
+int noteDurations[] = { 2, 2, 2, 2, 4, 4, 4, 4 };
+
+
+void repeat_sound(void *) {
+  for (int thisNote = 0; thisNote < 8; thisNote++) {
+
+      int noteDuration = 1000 / noteDurations[thisNote];
+      //tone(8, melody[thisNote], noteDuration);
+      tone(9, melody[thisNote], noteDuration);
+
+      int pauseBetweenNotes = noteDuration;
+      delay(pauseBetweenNotes);
+      //noTone(8);
+      noTone(9);
+  }
+  return true; 
+}
+
+
+
+void setup() {
+  pinMode(9, OUTPUT);
+  timer.every(3000, repeat_sound); //repeat timer
+}
+
+
+
+void loop() {
+  timer.tick(); // to make the timer tick
+}
+
+
+
+
+
+(5)
+
+#include "pitches.h"
+
+
+int melody[] = { NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4 };
+
+
+int noteDurations[] = { 2, 2, 4, 4, 6, 6, 8, 8 };
+
+
+void setup() {
+  pinMode(4, INPUT_PULLUP);
+  pinMode(7, OUTPUT);
+}
+
+
+void making_sound() {
+  for (int thisNote = 0; thisNote < 8; thisNote++) {
+    int noteDuration = 1000 / noteDurations[thisNote];
+    tone(4, melody[thisNote], noteDuration);
+    int pauseBetweenNotes = noteDuration;
+    delay(pauseBetweenNotes);
+    noTone(4);
+  }
+}
+  
+
+void loop() {
+  if(digitalRead(4) == LOW) {
+    //making_sound();
+    digitalWrite(7, HIGH);
+    making_sound();
+  } else {
+    digitalWrite(7, LOW);
+  }
+}
+
+ 
+ 
+ 
+ 
+ ----------------------------------------------------------------------------------------------
+
+ 
+(1)
+ATMEGA328P = Microcontroller
+MAX7219 = input/output display drivers -> to control 8x8-Matrix
+ 
+ 
+ 
+ 
