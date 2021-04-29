@@ -1,3 +1,4 @@
+//LED Licht
 
 int brightness = 0;
 int fading = 5;
@@ -13,9 +14,9 @@ void loop() {
   // for LED - blinking
   if(digitalRead(4) == LOW) {
     digitalWrite(7, HIGH);
-    delay(10); 
-    digitalWrite(7, LOW);
-    delay(10);
+    //delay(10); // timer
+    //digitalWrite(7, LOW); // timer
+    //delay(10); //timer
   } else {
     digitalWrite(7, LOW);
   }

@@ -8,7 +8,7 @@
   <PWI>
    <POPUP w="400" x="965" flags="00000002" y="106" h="100" pid="0" iid="-1">
     <PROPERTIES>
-     <ITEM name="Message Column Width">249</ITEM>
+     <ITEM name="Message Column Width">263</ITEM>
      <ITEM name="ShowGrid">No</ITEM>
      <ITEM name="Source Column Width">100</ITEM>
      <ITEM name="Time Column Width">120</ITEM>
@@ -35,7 +35,7 @@
    <POPUP w="103" x="1812" flags="00000013" y="128" h="884" pid="4097" iid="4097">
     <PROPERTIES/>
    </POPUP>
-   <POPUP w="322" x="965" flags="00000008" y="106" h="312" pid="3" iid="1">
+   <POPUP w="30" x="965" flags="00000008" y="106" h="16" pid="3" iid="1">
     <PROPERTIES/>
    </POPUP>
    <POPUP w="1" x="965" flags="0000000a" y="105" h="1" pid="10" iid="1">
@@ -98,7 +98,7 @@
      <ITEM name="TopLineAddress">00000020</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="2435" x="6" flags="0000002b" y="183" h="1046" pid="1" iid="1">
+   <POPUP w="1940" x="0" flags="0000002b" y="0" h="1046" pid="1" iid="1">
     <PROPERTIES>
      <ITEM name="CaseSensitive">No</ITEM>
      <ITEM name="DISPADDRS">Yes</ITEM>
@@ -109,7 +109,7 @@
      <ITEM name="nBreakpoints">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="2439" x="5" flags="0000000b" y="1273" h="100" pid="2" iid="1">
+   <POPUP w="1940" x="0" flags="0000000b" y="940" h="100" pid="2" iid="1">
     <PROPERTIES>
      <ITEM name="Address Column Width">812</ITEM>
      <ITEM name="AutoResize">No</ITEM>

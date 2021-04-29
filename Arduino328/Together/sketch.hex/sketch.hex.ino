@@ -1,3 +1,5 @@
+//Together
+
 #include "pitches.h"
 
 
@@ -16,10 +18,10 @@ void setup() {
 void making_sound() {
   for (int thisNote = 0; thisNote < 8; thisNote++) {
     int noteDuration = 1000 / noteDurations[thisNote];
-    tone(4, melody[thisNote], noteDuration);
+    tone(11, melody[thisNote], noteDuration);
     int pauseBetweenNotes = noteDuration;
     delay(pauseBetweenNotes);
-    noTone(4);
+    noTone(11);
   }
 }
   

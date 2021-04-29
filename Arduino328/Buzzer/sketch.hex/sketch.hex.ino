@@ -1,3 +1,5 @@
+//Buzzer
+
 #include "pitches.h"
 #include "arduino-timer.h"
 
@@ -17,13 +19,13 @@ void repeat_sound(void *) {
   for (int thisNote = 0; thisNote < 8; thisNote++) {
 
       int noteDuration = 1000 / noteDurations[thisNote];
-      //tone(8, melody[thisNote], noteDuration);
-      tone(9, melody[thisNote], noteDuration);
+      //tone(8, melody[thisNote], noteDuration); //with Button
+      tone(9, melody[thisNote], noteDuration); //with Timer
 
       int pauseBetweenNotes = noteDuration;
       delay(pauseBetweenNotes);
-      //noTone(8);
-      noTone(9);
+      //noTone(8); //with Button
+      noTone(9); //with Timer
   }
   return true; 
 }
